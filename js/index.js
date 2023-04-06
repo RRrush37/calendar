@@ -232,7 +232,18 @@ function edit() {
 }
 
 window.addEventListener("load", () => {
+  let nowDate = new Date();
+  document.getElementById("year").innerText = 1900 + nowDate.getYear();
+  document.getElementById("month").innerText = nowDate.getMonth() + 1;
   renderDate();
+  if (localStorage.getItem("daybg")) {
+    let day = document.querySelectorAll(".day");
+    day.forEach(function (index) {
+      index.style.backgroundColor = localStorage.getItem("daybg");
+      document.querySelector(".colorPicker").value =
+        localStorage.getItem("daybg");
+    });
+  }
   let leftArrow = document.querySelector(".leftArrow");
   let rightArrow = document.querySelector(".rightArrow");
   let newEvent = document.querySelector(".newEvent");
@@ -303,6 +314,7 @@ window.addEventListener("load", () => {
     day.forEach(function (item) {
       item.style.backgroundColor = colorPicker.value;
     });
+    localStorage.setItem("daybg", colorPicker.value);
   });
   document.addEventListener("click", (e) => {
     if (
