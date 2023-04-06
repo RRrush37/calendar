@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/index.js"></script>
+    <title>Calendar</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="dataSwitch">
+        <div class="arrow leftArrow">上一個月</div>
+        <p class="nowDate">
+          <span id="year">2023</span>年<span id="month">3</span>月
+        </p>
+        <div class="arrow rightArrow">下一個月</div>
+      </div>
+      <div class="newEvent">新增代辦事項</div>
+      <div class="colorChoose">
+        <span>背景顏色</span>
+        <input type="color" class="colorPicker" value="#d3d3d3" />
+      </div>
+    </div>
+    <ul class="titleFlex">
+      <li class="title">星期一</li>
+      <li class="title">星期二</li>
+      <li class="title">星期三</li>
+      <li class="title">星期四</li>
+      <li class="title">星期五</li>
+      <li class="title">星期六</li>
+      <li class="title">星期日</li>
+    </ul>
+    <ul class="week week1">
+      <li class="day day1"></li>
+      <li class="day day2"></li>
+      <li class="day day3"></li>
+      <li class="day day4"></li>
+      <li class="day day5"></li>
+      <li class="day day6"></li>
+      <li class="day day7"></li>
+    </ul>
+    <ul class="week week2">
+      <li class="day day1"></li>
+      <li class="day day2"></li>
+      <li class="day day3"></li>
+      <li class="day day4"></li>
+      <li class="day day5"></li>
+      <li class="day day6"></li>
+      <li class="day day7"></li>
+    </ul>
+    <ul class="week week3">
+      <li class="day day1"></li>
+      <li class="day day2"></li>
+      <li class="day day3"></li>
+      <li class="day day4"></li>
+      <li class="day day5"></li>
+      <li class="day day6"></li>
+      <li class="day day7"></li>
+    </ul>
+    <ul class="week week4">
+      <li class="day day1"></li>
+      <li class="day day2"></li>
+      <li class="day day3"></li>
+      <li class="day day4"></li>
+      <li class="day day5"></li>
+      <li class="day day6"></li>
+      <li class="day day7"></li>
+    </ul>
+    <ul class="week week5">
+      <li class="day day1"></li>
+      <li class="day day2"></li>
+      <li class="day day3"></li>
+      <li class="day day4"></li>
+      <li class="day day5"></li>
+      <li class="day day6"></li>
+      <li class="day day7"></li>
+    </ul>
+    <ul class="week week6">
+      <li class="day day1"></li>
+      <li class="day day2"></li>
+      <li class="day day3"></li>
+      <li class="day day4"></li>
+      <li class="day day5"></li>
+      <li class="day day6"></li>
+      <li class="day day7"></li>
+    </ul>
+    <div class="insert">
+      <form class="form" action="javascript:submit()">
+        <p>日期</p>
+        <input type="date" id="date" value="2023-04-05" />
+        <p>開始時間</p>
+        <input type="time" id="startTime" value="16:30" />
+        <p>結束時間</p>
+        <input type="time" id="endTime" value="20:30" />
+        <p>代辦事項</p>
+        <input type="text" id="toDo" placeholder="請輸入代辦事項" />
+        <div class="toDocolorChoose">
+          <span>活動顏色</span>
+          <input type="color" id="colorPicker" value="#cccc33" />
+        </div>
+        <ul class="flex">
+          <button class="flexItem" type="submit">確認</button>
+          <a class="flexItem" id="search">查詢</a>
+          <a class="flexItem" id="cancel">取消</a>
+        </ul>
+      </form>
+    </div>
+    <div class="edit">
+      <form class="form" action="javascript:edit()">
+        <p>日期</p>
+        <input type="date" id="eDate" value="2023-04-05" />
+        <p>開始時間</p>
+        <input type="time" id="eStartTime" value="16:30" />
+        <p>結束時間</p>
+        <input type="time" id="eEndTime" value="20:30" />
+        <p>代辦事項</p>
+        <input type="text" id="eToDo" placeholder="請輸入代辦事項" />
+        <div class="toDocolorChoose">
+          <span>活動顏色</span>
+          <input type="color" id="eColorPicker" value="#cccc33" />
+        </div>
+        <ul class="flex">
+          <button class="flexItem" id="editEdit" type="submit">修改</button>
+          <a class="flexItem" id="editDelete">刪除</a>
+          <a class="flexItem" id="editCancel">取消</a>
+        </ul>
+      </form>
+    </div>
+  </body>
+</html>
