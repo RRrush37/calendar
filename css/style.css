@@ -168,3 +168,12 @@ body {
 input[type="color"] {
   cursor: pointer;
 }
+
+.allDay,
+.allDayText {
+  display: inline;
+}
+
+.allDay {
+  margin-top: 5px;
+}

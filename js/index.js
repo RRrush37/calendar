@@ -81,11 +81,12 @@ function insertToDo(arr, insertData) {
       end = middle - 1;
       continue;
     }
+    console.log(arr[middle]);
     for (let i = middle; arr[i] && arr[i].date == insertData.date; i++) {
       if (
         (insertData.startTime >= arr[i].startTime &&
-          insertData.startTime <= arr[i].endTime) ||
-        (insertData.endTime >= arr[i].startTime &&
+          insertData.startTime < arr[i].endTime) ||
+        (insertData.endTime > arr[i].startTime &&
           insertData.endTime <= arr[i].endTime) ||
         (insertData.startTime <= arr[i].startTime &&
           insertData.endTime >= arr[i].endTime)
@@ -101,11 +102,11 @@ function insertToDo(arr, insertData) {
         return;
       }
     }
-    for (let i = middle; arr[i] && arr[i].date == insertData.date; i--) {
+    for (let i = middle - 1; arr[i] && arr[i].date == insertData.date; i--) {
       if (
         (insertData.startTime >= arr[i].startTime &&
-          insertData.startTime <= arr[i].endTime) ||
-        (insertData.endTime >= arr[i].startTime &&
+          insertData.startTime < arr[i].endTime) ||
+        (insertData.endTime > arr[i].startTime &&
           insertData.endTime <= arr[i].endTime) ||
         (insertData.startTime <= arr[i].startTime &&
           insertData.endTime >= arr[i].endTime)
@@ -231,6 +232,30 @@ function edit() {
   }
 }
 
+function check(checkboxChange, position) {
+  let startTime, endTime, checkbox;
+  if (position === "edit") {
+    checkbox = document.getElementById("eAllDay");
+    startTime = document.getElementById("eStartTime");
+    endTime = document.getElementById("eEndTime");
+  } else {
+    checkbox = document.getElementById("allDay");
+    startTime = document.getElementById("startTime");
+    endTime = document.getElementById("endTime");
+  }
+  if (checkboxChange) {
+    if (checkbox.checked) {
+      startTime.value = "00:00";
+      endTime.value = "23:59";
+    }
+  }
+  if (startTime.value === "00:00" && endTime.value === "23:59") {
+    checkbox.checked = true;
+  } else {
+    checkbox.checked = false;
+  }
+}
+
 window.addEventListener("load", () => {
   let nowDate = new Date();
   document.getElementById("year").innerText = 1900 + nowDate.getYear();
@@ -251,6 +276,12 @@ window.addEventListener("load", () => {
   let year = document.querySelector("#year");
   let search = document.getElementById("search");
   let cancel = document.getElementById("cancel");
+  let startTime = document.getElementById("startTime");
+  let endTime = document.getElementById("endTime");
+  let eStartTime = document.getElementById("eStartTime");
+  let eEndTime = document.getElementById("eEndTime");
+  let allDay = document.getElementById("allDay");
+  let eAllDay = document.getElementById("eAllDay");
   let editCancel = document.getElementById("editCancel");
   let editDelete = document.getElementById("editDelete");
   let colorPicker = document.querySelector(".colorPicker");
@@ -276,6 +307,7 @@ window.addEventListener("load", () => {
     let month = document.getElementById("month").innerHTML.padStart(2, "0");
     let insert = document.getElementsByClassName("insert")[0];
     document.getElementById("date").value = `${year}-${month}-01`;
+    check(false, "new");
     insert.style.display = "block";
   });
   search.addEventListener("click", () => {
@@ -290,6 +322,24 @@ window.addEventListener("load", () => {
   cancel.addEventListener("click", () => {
     let insert = document.getElementsByClassName("insert")[0];
     insert.style.display = "none";
+  });
+  startTime.addEventListener("input", () => {
+    check(false, "new");
+  });
+  endTime.addEventListener("input", () => {
+    check(false, "new");
+  });
+  eStartTime.addEventListener("input", () => {
+    check(false, "edit");
+  });
+  eEndTime.addEventListener("input", () => {
+    check(false, "edit");
+  });
+  allDay.addEventListener("input", () => {
+    check(true, "new");
+  });
+  eAllDay.addEventListener("input", () => {
+    check(true, "edit");
   });
   editCancel.addEventListener("click", () => {
     let insert = document.getElementsByClassName("edit")[0];
@@ -331,13 +381,13 @@ window.addEventListener("load", () => {
       let toDo = JSON.parse(localStorage.getItem("toDo"))
         ? JSON.parse(localStorage.getItem("toDo"))
         : [];
-
       document.getElementById("eDate").value = toDo[nowEditPos].date;
       document.getElementById("eStartTime").value = toDo[nowEditPos].startTime;
       document.getElementById("eEndTime").value = toDo[nowEditPos].endTime;
       document.getElementById("eToDo").value = toDo[nowEditPos].todo;
       document.getElementById("eColorPicker").value =
         toDo[nowEditPos].backgroundColor;
+      check(false, "edit");
       toDo[nowEditPos];
       let edit = document.querySelector(".edit");
       edit.style.display = "block";
