@@ -59,7 +59,6 @@ function renderDate() {
 }
 
 function insertToDo(arr, insertData) {
-  alert(insertData);
   if (!arr.length || arr[0].date > insertData.date) {
     arr.unshift(insertData);
     return;
@@ -122,6 +121,7 @@ function insertToDo(arr, insertData) {
         return;
       }
     }
+
     for (
       var i = middle;
       arr[i] &&
@@ -129,9 +129,16 @@ function insertToDo(arr, insertData) {
       arr[i].startTime < insertData.startTime;
       i++
     );
+    for (
+      ;
+      arr[i - 1] &&
+      arr[i - 1].date == insertData.date &&
+      arr[i - 1].startTime > insertData.startTime;
+      i--
+    );
 
     arr.splice(i, 0, insertData);
-    alert(arr);
+    // alert(arr);
     return;
   }
 }
@@ -199,7 +206,7 @@ function submit() {
     };
     insertToDo(toDo, dateItem);
     localStorage.setItem("toDo", JSON.stringify(toDo));
-    alert(localStorage.getItem("toDo"));
+    // alert(localStorage.getItem("toDo"));
     let insert = document.getElementsByClassName("insert")[0];
     insert.style.display = "none";
     renderDate();
@@ -274,7 +281,7 @@ window.addEventListener("load", () => {
   let newEvent = document.querySelector(".newEvent");
   let month = document.querySelector("#month");
   let year = document.querySelector("#year");
-  let search = document.getElementById("search");
+  // let search = document.getElementById("search");
   let cancel = document.getElementById("cancel");
   let startTime = document.getElementById("startTime");
   let endTime = document.getElementById("endTime");
@@ -310,15 +317,15 @@ window.addEventListener("load", () => {
     check(false, "new");
     insert.style.display = "block";
   });
-  search.addEventListener("click", () => {
-    if (!document.getElementById("date").value) {
-      alert("請輸入查詢日期");
-      return;
-    }
-    let ans = findToDo(document.getElementById("date").value);
-    alert(ans);
-    console.log(ans);
-  });
+  // search.addEventListener("click", () => {
+  //   if (!document.getElementById("date").value) {
+  //     alert("請輸入查詢日期");
+  //     return;
+  //   }
+  //   let ans = findToDo(document.getElementById("date").value);
+  //   alert(ans);
+  //   console.log(ans);
+  // });
   cancel.addEventListener("click", () => {
     let insert = document.getElementsByClassName("insert")[0];
     insert.style.display = "none";
@@ -350,7 +357,7 @@ window.addEventListener("load", () => {
       let toDo = JSON.parse(localStorage.getItem("toDo"))
         ? JSON.parse(localStorage.getItem("toDo"))
         : [];
-      alert(nowEditPos);
+      // alert(nowEditPos);
       if (nowEditPos != -1) toDo.splice(nowEditPos, 1);
       nowEditPos = -1;
       localStorage.setItem("toDo", JSON.stringify(toDo));
